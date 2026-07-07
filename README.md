@@ -1,13 +1,73 @@
 # Baybay (바이바이) — A Web App for Learning the Tagalog Baybayin Script
 
-> A single-file web app for mastering all 59 characters of **Baybayin**, the ancient Philippine script, through flashcards, quizzes, and review sessions.
-> Baybayin is an **abugida** writing system in which consonants carry an inherent `a` vowel that changes with kudlit (dot) marks and the virama (final-consonant mark) — this app is designed to teach it slowly, one character at a time.
+> **Master all 59 characters of Baybayin, the ancient Philippine script, "one character at a time"** — now as a **Duolingo-style game**: hearts, combos and streaks on top of flashcard practice, 6-choice quizzes, focused review of missed characters, a character chart, pronunciation playback (TTS), an activity heatmap, and error-rate statistics. Korean/English UI, dark mode, zero build step. Usable as a guest, with **Google sign-in + Firestore cloud sync** across devices.
+> Baybayin is an **abugida**: consonants carry an inherent `a` vowel that changes with kudlit (dot) marks and the virama (final-consonant mark).
 
-🔗 **Live demo:** https://clayborneyeounjunlee.github.io/baybayin/
-
-> When you visit the live link, `index.html` immediately redirects to the actual app file (`바이바이인_암기카드.html`, "Baybayin flashcards").
+🔗 **Live:** https://baybayin.clayborne.dev/
+📦 **Repository:** https://github.com/ClayborneYeounjunLee/baybayin
 
 ---
+
+## 🎮 v2 — Duolingo-style renewal (2026-07)
+
+`index.html` is now the app itself: a complete visual/UX renewal in the same bold style as its sibling app [Kanade](https://kanade.clayborne.dev/) (Jua · M PLUS Rounded 1c webfonts, plus **Noto Sans Tagalog** for the Baybayin glyphs), designed in Claude Design and shipped as plain static files.
+
+**Screens (9):** intro · home · study setup · practice · quiz · review · result · character chart · my page
+
+### Gamification
+- ❤️ **5 hearts per quiz session** — a wrong answer costs one heart; running out ends the session early.
+- 🔥 **Combo** counter with a saved best-combo record, plus the daily **study streak**.
+- Session progress bar and a result screen with a per-card recap.
+
+### Carried over from v1
+- Full **59-card** Baybayin set (3 vowels / 14 basic consonants / 14 kudlit i·e / 14 kudlit u·o / 14 virama finals).
+- **KO/EN** toggle, **dark mode** (auto-detect + manual), **TTS** via the Web Speech API — Filipino (`fil-PH`) voice reading the **romanization** (TTS cannot read Baybayin glyphs themselves).
+- **Noto Sans Tagalog** web font so the U+1700 block renders everywhere (most systems have no Baybayin font).
+- **Keyboard shortcuts:** Space/Enter = reveal/next, X = "didn't know", 1–6 = quiz choices.
+- Review rule: characters **seen ≥ 3 times with an error rate ≥ 30%**.
+
+### Accounts & sync
+- **Google sign-in (Firebase Auth)** with `signInWithPopup` → automatic `signInWithRedirect` fallback when popups are blocked.
+- Signed-in data syncs to **Cloud Firestore** — the **same `baybay_users/{uid}` document as v1**, so records continue seamlessly between v1 and v2 and across devices. Writes are debounced (2s) and flushed on tab hide / page leave / session end; the SDK's persistent local cache queues offline writes.
+- Entry is **local-mirror-first**: a returning cloud user boots straight into home from a localStorage mirror, then the Firestore copy (cache → server, with timeouts) syncs in the background — no loading screen.
+- **First sign-in promotes this device's guest records** to the cloud (nick becomes your Google display name); signing out returns you to your untouched guest profile.
+- **Guest mode** still works fully without an account: data stays in this device's `localStorage`. On first run v2 also **imports v1 guest records (`baybay-guest`) read-only**; it never writes back to v1 keys.
+
+### Tech (v2)
+| Category | Details |
+|---|---|
+| **Runtime** | `dc-runtime.js` — declarative `<x-dc>` template + `DCLogic` component runtime; loads React 18.3.1 UMD from unpkg with SRI-pinned `<script>` tags |
+| **Data** | `baybay-duo-data.js` — Baybayin data · KO/EN strings · utils ported unchanged from v1, exposed as `window.__BAYBAY_DATA` |
+| **Fonts** | Google Fonts: **Jua** 400 · **M PLUS Rounded 1c** 500/700/800 · **Noto Sans Tagalog** (Baybayin glyph fallback in every font stack) |
+| **Auth / DB** | Firebase JS SDK **v12.14.0** (gstatic ESM, dynamic `import()`) — Google sign-in + Firestore `baybay_users/{uid}` shared with v1; forced long polling + persistent local cache (same hardening as v1) |
+| **Speech** | Web Speech API (`SpeechSynthesis`) — `fil-PH` voice (exact match → `fil`/`tl` prefix fallback), rate 0.85, reads the romanization |
+| **Storage** | Guest: `localStorage` (`baybay-duo-*` keys, table below). Signed in: Firestore + a localStorage mirror for instant entry |
+| **Build** | None — static files, serve as-is |
+
+| localStorage key | Purpose |
+|---|---|
+| `baybay-duo-guest` | Guest study profile (`nick`, `stats`, `activity`, `bestCombo`) |
+| `baybay-duo-cloud` | Local mirror of the signed-in profile (instant boot before Firestore responds) |
+| `baybay-duo-mode` | `"guest"` or `"cloud"` — decides the entry path on the next visit |
+| `baybay-duo-setup` | Study settings (parts, question format, hard mode, time limit) |
+| `baybay-duo-lang` / `baybay-duo-theme` / `baybay-duo-sound` | UI preferences |
+
+### File structure
+```
+baybayin/
+├── index.html              # v2 app — Duolingo-style renewal (this is what baybayin.clayborne.dev serves)
+├── dc-runtime.js           # declarative-component runtime used by index.html
+├── baybay-duo-data.js      # Baybayin data + i18n module (window.__BAYBAY_DATA)
+├── 바이바이인_암기카드.html   # v1 "classic" app — still served; keeps Google sign-in + Firestore sync
+├── 계획서.md                # original planning document (Korean)
+└── README.md               # this document
+```
+
+> **v1 stays available** at [baybayin.clayborne.dev/바이바이인_암기카드.html](https://baybayin.clayborne.dev/%EB%B0%94%EC%9D%B4%EB%B0%94%EC%9D%B4%EC%9D%B8_%EC%95%94%EA%B8%B0%EC%B9%B4%EB%93%9C.html) — it uses the same Firestore document, so progress carries over both ways. **Everything below this line documents v1.**
+
+---
+
+# 📚 v1 (classic) documentation
 
 ## ✨ Key Features
 
@@ -60,7 +120,7 @@ https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js
 
 ### Single file · screen-switching (SPA) approach
 
-The entire app lives in one file, `바이바이인_암기카드.html`. There is no router — the app works by **toggling classes on 9 screen `<div>`s** to show and hide them.
+The entire v1 app lives in one file, `바이바이인_암기카드.html`. There is no router — the app works by **toggling classes on 9 screen `<div>`s** to show and hide them.
 
 ```
 loading → auth → home → study → practice → quiz → result → charts → mypage
@@ -224,7 +284,7 @@ python -m http.server 8000
 npx serve .
 ```
 
-Open `http://localhost:8000/` in your browser → `index.html` redirects to the actual app (`바이바이인_암기카드.html`).
+> ⚠️ Changed in v2: `index.html` used to be a redirect stub pointing to the classic app. It is now the v2 app itself; open `바이바이인_암기카드.html` directly for v1.
 
 > There is no `package.json`, so there is no dependency-installation step like `npm install`. Guest mode works offline, but fonts/Firebase require an internet connection.
 
@@ -232,35 +292,31 @@ Open `http://localhost:8000/` in your browser → `index.html` redirects to the 
 
 ## 🚀 Deployment
 
-Static hosting on **GitHub Pages** (no separate server or build).
+Served as static files by the Caddy container on `clayborne.dev` (see the routing table in the server's ops notes) — deploying is just `git pull` in the app directory; there is no build or restart step.
 
-1. In the repository's `Settings → Pages`, set the branch to `main` and the folder to `/ (root)`.
-2. Commit/push and it goes live at `https://<username>.github.io/baybayin/`.
-3. To use Google sign-in, add the GitHub Pages domain (`clayborneyeounjunlee.github.io`) under **Authentication → Authorized domains** in the Firebase console.
-
-Current deployment URL: **https://clayborneyeounjunlee.github.io/baybayin/**
+1. Domain: **https://baybayin.clayborne.dev/** (wildcard DNS + automatic Let's Encrypt TLS via Caddy).
+2. To use Google sign-in, the serving domain must be listed under **Authentication → Authorized domains** in the Firebase console.
 
 ---
 
-## 📁 File Structure
+## 📁 File Structure (v1 part of the repo)
 
 ```
 baybayin/
-├── index.html              # entry point — immediately redirects to the actual app file (one-shot wrapper)
-├── 바이바이인_암기카드.html   # ⭐ the entire app ("Baybayin flashcards"; single HTML+CSS+JS file, ~1,510 lines)
-├── 계획서.md                # planning/design document ("plan"; scheme to replicate Kanade's structure, data tables, etc.)
-└── README.md               # this document
+├── 바이바이인_암기카드.html   # ⭐ the entire v1 app ("Baybayin flashcards"; single HTML+CSS+JS file, ~1,510 lines)
+└── 계획서.md                # planning/design document ("plan"; scheme to replicate Kanade's structure, data tables, etc.)
 ```
 
 | File | One-line description |
 |---|---|
-| `index.html` | Thin entry point that redirects to `바이바이인_암기카드.html` via `<script>` and `<meta refresh>` |
-| `바이바이인_암기카드.html` | The main body containing everything: 9 screens, data (59 characters), session engine, Firebase/guest storage, localization, and dark mode |
+| `바이바이인_암기카드.html` | The v1 body containing everything: 9 screens, data (59 characters), session engine, Firebase/guest storage, localization, and dark mode |
 | `계획서.md` | Korean planning document outlining what to reuse/replace from the Japanese sibling app Kanade |
+
+> Note: before v2, `index.html` was a thin entry point that redirected here via `<script>` and `<meta refresh>`.
 
 ---
 
-## 🔗 Related Apps (moa hub · sibling app)
+## 🔗 Related Apps (sibling app)
 
-- The **◈ button** at the top right of the home screen leads to **moa**, a personal app collection hub → https://clayborneyeounjunlee.github.io/moa/
-- This app is a sibling app built by reusing roughly 90% of the code from **Kanade (kana flashcards)**, a Japanese kana learning app. It shares the screen layout, sign-in, statistics (contribution graph), dark mode, and Korean/English toggle logic, replacing only 4 things for Baybayin: **character data, font, TTS language, and branding**. Firebase uses the same project as well, with only the collection (`baybay_users`) separated.
+- This app is a sibling app built by reusing the structure of **Kanade (kana flashcards)**, a Japanese kana learning app — screen layout, sign-in, statistics (contribution graph), dark mode, and Korean/English toggle logic are shared, replacing only the **character data, font, TTS language, and branding** for Baybayin. Firebase uses the same project as well, with only the collection (`baybay_users`) separated.
+- Hub / portfolio: https://clayborne.dev/
