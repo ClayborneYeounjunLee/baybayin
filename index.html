@@ -2,12 +2,12 @@
 <html lang="ko"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#FFF8F4">
+<meta name="theme-color" content="#F7F6FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="description" content="바이바이 — 바이바이인 문자를 듀오링고처럼: 연습·퀴즈·복습, 하트·콤보·스트릭, 문자표·TTS, 한국어/영어, 다크모드.">
 <title>Baybay · 바이바이</title>
-<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23e2603f'/><text x='32' y='45' font-size='34' text-anchor='middle' fill='white' font-family='sans-serif'>B</text></svg>">
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%234F46E5'/><text x='32' y='45' font-size='34' text-anchor='middle' fill='white' font-family='sans-serif'>B</text></svg>">
 <script src="dc-runtime.js"></script>
 <script src="baybay-duo-data.js"></script>
 
@@ -19,31 +19,33 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+Tagalog&display=swap">
 <style>
-body{margin:0;background:#FFF8F4}
-body:has(.kd[data-theme="dark"]){background:#221917}
+body{margin:0;background:#F7F6FF}
+body:has(.kd[data-theme="dark"]){background:#151329}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 button{font-family:inherit;color:inherit}
 .kd{
-  --bg:#FFF8F4; --card:#FFFFFF; --ink:#4A3733; --sub:#B08F85; --line:#F3DFD6; --line2:#F6EAE3;
-  --dash:#EBD6CC; --track:#F3DFD6; --sw-off:#E8D8D0;
-  --red:#E0483E; --red2:#D93A30; --red-dk:#BC3428; --red-soft:#FCE7E0; --red-text:#D93A30;
+  --bg:#F7F6FF; --card:#FFFFFF; --ink:#3A3560; --sub:#948FC0; --line:#E5E2F8; --line2:#EFEDFB;
+  --dash:#D8D4F0; --track:#E5E2F8; --sw-off:#DBD7EE;
+  --red:#5B54E8; --red2:#4C45D6; --red-dk:#3D37B0; --red-soft:#EAE8FF; --red-text:#4C45D6;
+  --err:#D64545; --err-soft:#FBE4E4; --err-text:#C43C3C;
   --pink:#F48FB1; --pink-dk:#D9608A; --pink-soft:#FCE4EC; --pink-line:#F4A9C4; --pink-text:#D64570;
   --gold:#F5A623; --gold-dk:#D18A0F; --gold-soft:#FFF1D2; --gold-line:#F7CE6B; --gold-text:#C77B12;
   --teal:#3FB8A5; --teal-dk:#2E9686; --teal-text:#2E9686;
   --green:#55B84E; --green-dk:#3F9139; --green-soft:#E9F6E5;
-  --hm0:#F6E7E1; --hm1:#F8C9CF; --hm2:#F09AA4; --hm3:#E4636D; --hm4:#C22F3B;
-  --card-sh:0 8px 24px rgba(190,80,60,.10);
+  --hm0:#EDEBFB; --hm1:#CFCAF5; --hm2:#A39BEE; --hm3:#6F65E2; --hm4:#4038B8;
+  --card-sh:0 8px 24px rgba(91,84,232,.10);
   color-scheme:light;
 }
 .kd[data-theme="dark"]{
-  --bg:#221917; --card:#2E2321; --ink:#F4E9E4; --sub:#A8897E; --line:#463430; --line2:#3B2C28;
-  --dash:#54403A; --track:#463430; --sw-off:#4A3833;
-  --red:#E2544A; --red2:#D94439; --red-dk:#8F2A22; --red-soft:#45241F; --red-text:#F08A80;
+  --bg:#151329; --card:#201D3A; --ink:#ECEAF9; --sub:#8B85B8; --line:#343056; --line2:#2B2749;
+  --dash:#443E70; --track:#343056; --sw-off:#3A3563;
+  --red:#6E67F0; --red2:#5D56DE; --red-dk:#37319C; --red-soft:#292450; --red-text:#A5A0F8;
+  --err:#E2544A; --err-soft:#45241F; --err-text:#F08A80;
   --pink:#E87FA6; --pink-dk:#B54D75; --pink-soft:#3F2530; --pink-line:#6E3C50; --pink-text:#F2A0BE;
   --gold:#EFA82D; --gold-dk:#A9740D; --gold-soft:#3F3115; --gold-line:#6E5722; --gold-text:#F2BE5C;
   --teal:#43BBA7; --teal-dk:#2A7A6C; --teal-text:#6FD3C2;
   --green:#5CBD54; --green-dk:#377932; --green-soft:#24351F;
-  --hm0:#3A2C29; --hm1:#5C3038; --hm2:#8A3945; --hm3:#C24552; --hm4:#EF6C7A;
+  --hm0:#2B2749; --hm1:#3A3470; --hm2:#4C4499; --hm3:#675CCC; --hm4:#9088F2;
   --card-sh:0 8px 24px rgba(0,0,0,.35);
   color-scheme:dark;
 }
@@ -60,6 +62,7 @@ button{font-family:inherit;color:inherit}
 <sc-if value="{{ isAuth }}" hint-placeholder-val="{{ true }}">
 <div data-screen-label="로그인" style="padding:22px 18px 48px;animation:kd-fadein .25s ease">
   <div style="display:flex;justify-content:flex-end;gap:8px">
+    <button onclick="{{ goHub }}" title="clayborne.dev" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:14px;background:var(--card);border:2px solid var(--line);border-bottom-width:4px;cursor:pointer;font-size:15px;color:var(--sub);padding:0" style-active="transform:translateY(2px);border-bottom-width:2px">◈</button>
     <button onclick="{{ onToggleLang }}" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:14px;background:var(--card);border:2px solid var(--line);border-bottom-width:4px;cursor:pointer;font-size:12.5px;font-weight:800;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif;color:var(--ink);padding:0" style-active="transform:translateY(2px);border-bottom-width:2px">{{ langBtnLabel }}</button>
     <button onclick="{{ onToggleTheme }}" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:14px;background:var(--card);border:2px solid var(--line);border-bottom-width:4px;cursor:pointer;font-size:16px;padding:0" style-active="transform:translateY(2px);border-bottom-width:2px">{{ themeIcon }}</button>
   </div>
@@ -74,7 +77,7 @@ button{font-family:inherit;color:inherit}
       <svg viewBox="0 0 48 48" aria-hidden="true" style="width:20px;height:20px;flex:0 0 auto"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.7-.4-3.9z"></path><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"></path><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.4-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"></path><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.1-4.1 5.5l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.7-.4-3.9z"></path></svg>
       <span>{{ googleBtnLabel }}</span>
     </button>
-    <div style="min-height:20px;margin-top:12px;font-size:12.5px;font-weight:700;color:var(--red-text);text-align:center;line-height:1.6">{{ authMsg }}</div>
+    <div style="min-height:20px;margin-top:12px;font-size:12.5px;font-weight:700;color:var(--err-text);text-align:center;line-height:1.6">{{ authMsg }}</div>
   </div>
   <p style="text-align:center;font-size:12px;color:var(--sub);font-weight:600;margin-top:14px;line-height:1.7">{{ t.authHint }}</p>
 </div>
@@ -83,18 +86,19 @@ button{font-family:inherit;color:inherit}
 <!-- ═════════ 홈 ═════════ -->
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
 <div data-screen-label="홈" style="animation:kd-fadein .25s ease">
-  <div style="background:linear-gradient(160deg,#E4544A,#D93A30);border-radius:0 0 30px 30px;padding:22px 18px 48px;color:#fff;position:relative;overflow:hidden">
+  <div style="background:linear-gradient(160deg,#7A6FF0,#4C45D6);border-radius:0 0 30px 30px;padding:22px 18px 48px;color:#fff;position:relative;overflow:hidden">
     <div style="position:absolute;right:-38px;top:-38px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.09)"></div>
     <div style="position:absolute;right:26px;bottom:-52px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.07)"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative">
       <div style="display:flex;align-items:center;gap:10px">
-        <span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:14px;background:#fff;color:#D93A30;font-size:21px;font-weight:800;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif;box-shadow:0 3px 0 rgba(0,0,0,.18)">ᜊ</span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:14px;background:#fff;color:#4C45D6;font-size:21px;font-weight:800;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif;box-shadow:0 3px 0 rgba(0,0,0,.18)">ᜊ</span>
         <span style="font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif;font-weight:800;font-size:20px">Baybay <span style="font-family:'Jua','Noto Sans Tagalog',sans-serif;font-weight:400;font-size:12px;opacity:.75">{{ t.brandSub }}</span></span>
       </div>
       <div style="display:flex;gap:7px;align-items:center">
+        <button onclick="{{ goHub }}" title="clayborne.dev" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.35);color:#fff;font-size:14px;cursor:pointer;padding:0" style-active="transform:translateY(2px)">◈</button>
         <button onclick="{{ onToggleLang }}" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.35);color:#fff;font-weight:800;font-size:12px;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif;cursor:pointer;padding:0" style-active="transform:translateY(2px)">{{ langBtnLabel }}</button>
         <button onclick="{{ onToggleTheme }}" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.35);font-size:15px;cursor:pointer;padding:0" style-active="transform:translateY(2px)">{{ themeIcon }}</button>
-        <button onclick="{{ goMypage }}" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:#F9C7D6;color:#C22F51;font-size:14px;font-family:'Jua','Noto Sans Tagalog',sans-serif;border:2px solid #fff;cursor:pointer;padding:0" style-active="transform:translateY(2px)">{{ avatarChar }}</button>
+        <button onclick="{{ goMypage }}" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:#D6D2FA;color:#3D37B0;font-size:14px;font-family:'Jua','Noto Sans Tagalog',sans-serif;border:2px solid #fff;cursor:pointer;padding:0;overflow:hidden" style-active="transform:translateY(2px)"><sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ photoURL }}" alt="" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></sc-if><sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ true }}">{{ avatarChar }}</sc-if></button>
       </div>
     </div>
     <div style="position:relative">
@@ -113,18 +117,18 @@ button{font-family:inherit;color:inherit}
       <div><div style="font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif;font-size:21px;font-weight:800;color:var(--teal-text)">{{ qsAcc }}</div><div style="font-size:10.5px;font-weight:700;color:var(--sub);margin-top:2px">{{ t.qsAcc }}</div></div>
     </div>
     <button onclick="{{ goStudy }}" style="display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--card);border:2px solid var(--line);border-bottom-width:5px;border-radius:22px;padding:18px;margin-bottom:12px;cursor:pointer;color:var(--ink)" style-active="transform:translateY(3px);border-bottom-width:2px">
-      <span style="display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:17px;background:var(--red);box-shadow:0 4px 0 var(--red-dk);color:#fff;font-size:26px;font-weight:800;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif;flex:0 0 auto">学</span>
+      <span style="display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:17px;background:var(--red);box-shadow:0 4px 0 var(--red-dk);color:#fff;font-size:26px;font-weight:800;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif;flex:0 0 auto">✍️</span>
       <span><span style="font-size:18px;font-weight:800;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog','Jua',sans-serif">{{ t.studyName }}</span><br><span style="font-size:12.5px;color:var(--sub);font-weight:600">{{ t.studyDesc }}</span></span>
       <span style="margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--red-soft);color:var(--red-text);font-size:16px;font-weight:800;flex:0 0 auto">›</span>
     </button>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <button onclick="{{ goCharts }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:10px;text-align:left;background:var(--card);border:2px solid var(--line);border-bottom-width:5px;border-radius:22px;padding:16px 15px;cursor:pointer;color:var(--ink)" style-active="transform:translateY(3px);border-bottom-width:2px">
-        <span style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:15px;background:var(--pink);box-shadow:0 4px 0 var(--pink-dk);color:#fff;font-size:23px;font-weight:800;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif">表</span>
+        <span style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:15px;background:var(--pink);box-shadow:0 4px 0 var(--pink-dk);color:#fff;font-size:23px;font-weight:800;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif">ᜀ</span>
         <span style="font-size:16px;font-weight:800">{{ t.chartsName }}</span>
         <span style="font-size:12px;color:var(--sub);font-weight:600;line-height:1.45;margin-top:-5px">{{ t.chartsDesc }}</span>
       </button>
       <button onclick="{{ goMypage }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:10px;text-align:left;background:var(--card);border:2px solid var(--line);border-bottom-width:5px;border-radius:22px;padding:16px 15px;cursor:pointer;color:var(--ink)" style-active="transform:translateY(3px);border-bottom-width:2px">
-        <span style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:15px;background:var(--gold);box-shadow:0 4px 0 var(--gold-dk);color:#fff;font-size:23px;font-weight:800;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif">記</span>
+        <span style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:15px;background:var(--gold);box-shadow:0 4px 0 var(--gold-dk);color:#fff;font-size:23px;font-weight:800;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif">👤</span>
         <span style="font-size:16px;font-weight:800">{{ t.myName }}</span>
         <span style="font-size:12px;color:var(--sub);font-weight:600;line-height:1.45;margin-top:-5px">{{ t.myDesc }}</span>
       </button>
@@ -220,7 +224,7 @@ button{font-family:inherit;color:inherit}
     <div style="flex:1;text-align:center;font-size:16px;font-weight:800;font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif">{{ pNow }} <span style="color:var(--sub);font-weight:500;font-size:13px">/ {{ pTotal }}</span></div>
     <div style="width:40px;flex:0 0 auto"></div>
   </div>
-  <div style="height:9px;border-radius:999px;background:var(--track);overflow:hidden;margin-bottom:16px"><div style="height:100%;border-radius:999px;background:linear-gradient(90deg,var(--red),#F08A5B);transition:width .25s;width:{{ pPct }}"></div></div>
+  <div style="height:9px;border-radius:999px;background:var(--track);overflow:hidden;margin-bottom:16px"><div style="height:100%;border-radius:999px;background:linear-gradient(90deg,var(--red),#8B7CF6);transition:width .25s;width:{{ pPct }}"></div></div>
   <div onclick="{{ onReveal }}" style="background:var(--card);border:2px solid var(--line);border-bottom-width:6px;border-radius:26px;min-height:330px;padding:26px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer">
     <span style="font-size:11.5px;font-weight:800;letter-spacing:.06em;color:var(--red-text);background:var(--red-soft);padding:6px 13px;border-radius:999px;margin-bottom:16px">{{ pBadge }}</span>
     <div style="{{ pQMainStyle }}">{{ pQMain }}</div>
@@ -259,11 +263,11 @@ button{font-family:inherit;color:inherit}
       </sc-for>
     </div>
   </div>
-  <div style="height:9px;border-radius:999px;background:var(--track);overflow:hidden;margin-bottom:14px"><div style="height:100%;border-radius:999px;background:linear-gradient(90deg,var(--red),#F08A5B);transition:width .25s;width:{{ qzPct }}"></div></div>
+  <div style="height:9px;border-radius:999px;background:var(--track);overflow:hidden;margin-bottom:14px"><div style="height:100%;border-radius:999px;background:linear-gradient(90deg,var(--red),#8B7CF6);transition:width .25s;width:{{ qzPct }}"></div></div>
   <sc-if value="{{ showTimer }}" hint-placeholder-val="{{ false }}">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-      <div style="flex:1;height:9px;background:var(--track);border-radius:99px;overflow:hidden"><div style="height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--red));width:{{ timerPct }}"></div></div>
-      <div style="font-weight:800;min-width:24px;text-align:center;color:var(--red-text);font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif">{{ timerSec }}</div>
+      <div style="flex:1;height:9px;background:var(--track);border-radius:99px;overflow:hidden"><div style="height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--err));width:{{ timerPct }}"></div></div>
+      <div style="font-weight:800;min-width:24px;text-align:center;color:var(--err-text);font-family:'M PLUS Rounded 1c','Noto Sans Tagalog',sans-serif">{{ timerSec }}</div>
     </div>
   </sc-if>
   <div style="position:relative">
@@ -371,7 +375,7 @@ button{font-family:inherit;color:inherit}
     <div style="width:40px;flex:0 0 auto"></div>
   </div>
   <div style="display:flex;align-items:center;gap:14px;background:var(--card);border:2px solid var(--line);border-bottom-width:5px;border-radius:22px;padding:18px;margin-bottom:12px">
-    <span style="display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:50%;background:var(--pink);color:#fff;font-size:21px;font-family:'Jua','Noto Sans Tagalog',sans-serif;flex:0 0 auto;box-shadow:0 3px 0 var(--pink-dk)">{{ avatarChar }}</span>
+    <span style="display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:50%;background:var(--pink);color:#fff;font-size:21px;font-family:'Jua','Noto Sans Tagalog',sans-serif;flex:0 0 auto;box-shadow:0 3px 0 var(--pink-dk);overflow:hidden"><sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ photoURL }}" alt="" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></sc-if><sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ true }}">{{ avatarChar }}</sc-if></span>
     <span><span style="font-family:'Jua','Noto Sans Tagalog',sans-serif;font-size:20px">{{ nick }}</span><span style="display:block;color:var(--sub);font-size:12.5px;font-weight:600;margin-top:2px">{{ mpMeta }}</span></span>
   </div>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">
@@ -476,7 +480,9 @@ class Component extends DCLogic {
     catch(e){ console.error("데이터 모듈 로드 실패:", e); return; }
     const D = this.D;
     const ls = k => { try { return localStorage.getItem(k); } catch(e){ return null; } };
-    const lang = ls("baybay-duo-lang") === "en" ? "en" : "ko";
+    const savedLang = ls("baybay-duo-lang");
+    const lang = savedLang ? (savedLang === "en" ? "en" : "ko")
+      : ((navigator.language || "ko").toLowerCase().startsWith("ko") ? "ko" : "en"); // 첫 방문은 브라우저 언어 (v1과 동일)
     const theme = ls("baybay-duo-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     const sound = ls("baybay-duo-sound") !== "off";
     let profile = null;
@@ -505,6 +511,8 @@ class Component extends DCLogic {
         if (cc.profile.bestCombo == null) cc.profile.bestCombo = 0;
         st.profile = cc.profile;
         st.screen = "home";
+        st.userEmail = cc.email || "";
+        st.photoURL = cc.photo || "";
         this.uid = cc.uid || null;   // 미러 소유자 — enterCloud에서 실제 로그인 uid와 대조
         this.dirty = !!cc.dirty;     // 지난 세션 미저장분 — 로그인 확인 후 재플러시
       }
@@ -576,8 +584,13 @@ class Component extends DCLogic {
     }
   }
   saveCloudCache(p){
-    // 소유자 uid + 미저장 여부를 함께 저장 — 계정 교차 오염 방지, dirty는 다음 부팅에서 재플러시용
-    try { localStorage.setItem("baybay-duo-cloud", JSON.stringify({ uid: this.uid, profile: p, dirty: !!this.dirty })); } catch(e){}
+    // 소유자 uid + 미저장 여부 + 계정 표시 정보를 함께 저장 — 부팅 시 아바타/이메일 즉시 표시용
+    try {
+      localStorage.setItem("baybay-duo-cloud", JSON.stringify({
+        uid: this.uid, profile: p, dirty: !!this.dirty,
+        email: this.state.userEmail || "", photo: this.state.photoURL || ""
+      }));
+    } catch(e){}
   }
   flushSave(){
     if (this.saveTimer){ clearTimeout(this.saveTimer); this.saveTimer = null; }
@@ -652,10 +665,10 @@ class Component extends DCLogic {
   }
   applyCloud(d, fbUser, extra){
     const profile = this.cloudProfileOf(d, fbUser);
-    this.saveCloudCache(profile);
     // 진행 중 화면은 유지하고, 로그인 화면에 있을 때만 홈으로 진입
     const screen = this.state.screen === "auth" ? "home" : this.state.screen;
     this.setState({ ...(extra || {}), profile, screen });
+    this.saveCloudCache(profile); // setState 뒤에 — 미러에 email/photo가 최신으로 담기게
   }
   async enterCloud(fbUser){
     const FB = this.FB, uid = fbUser.uid;
@@ -1030,6 +1043,10 @@ class Component extends DCLogic {
       },
       onGoogleTry: () => this.googleLogin(),
       nick, avatarChar: (nick || "?").charAt(0),
+      hasPhoto: s.mode === "cloud" && !!s.photoURL,
+      noPhoto: !(s.mode === "cloud" && !!s.photoURL),
+      photoURL: s.photoURL,
+      goHub: () => { location.href = "https://clayborne.dev/"; },
       streakChip: ko ? (streak + t.streakSuffix) : (streak + t.streakSuffix),
       heartsChip: "❤️ " + heartsMax,
       qsToday: u.activity[D.todayKey()] || 0,
@@ -1161,7 +1178,7 @@ class Component extends DCLogic {
         let st = optBase;
         if (sess.locked){
           if (i === sess.correctIdx) st = optBase + ";background:var(--green-soft);border-color:var(--green);cursor:default";
-          else if (i === sess.picked) st = optBase + ";background:var(--red-soft);border-color:var(--red);cursor:default";
+          else if (i === sess.picked) st = optBase + ";background:var(--err-soft);border-color:var(--err);cursor:default";
           else st = optBase + ";opacity:.5;cursor:default";
         }
         return {
